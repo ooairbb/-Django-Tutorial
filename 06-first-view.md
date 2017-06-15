@@ -2,7 +2,7 @@
 
 當 Django 收到一個 HTTP request 時，會首先確認該 request 的 URI 應該對應到哪個 view（如果對應不到，直接回傳 [404 Not Found](http://zh.wikipedia.org/zh-hant/HTTP_404)），並把 request 交給它。View 要負責處理這個 request，並回傳一個 HTTP response：
 
-```
+```markdown
            ┌──────────────┐
  request   │              │  response
 ─────────> │     view     │ ──────────>
@@ -29,7 +29,7 @@ urlpatterns = [
 
 接著我們實際實作 `home` function：
 
-```python
+```markdown
 from django.shortcuts import render
 
 def home(request):
@@ -40,7 +40,7 @@ def home(request):
 
 最後是 `home.html`。在 `stores` 裡建立一個目錄，叫做 `templates`，並在裡面新增 `home.html`：
 
-```html
+```markdown
 {# stores/templates/home.html #}
 
 <!DOCTYPE html>
@@ -79,13 +79,13 @@ def home(request):
 
    把 `lunch/urls.py` 中 `home` 的那行修改成下面這樣：
 
-   ```python
+   ```markdown
     url(r'^$', home, name='home'),
    ```
 
 2. 用這個 name 來 refer 我們要的 URL：
 
-   ```html
+   ```markdown
     <a class="navbar-brand" href="{% url 'home' %}">午餐系統</a>
    ```
 
@@ -95,7 +95,7 @@ def home(request):
 
 Django 的 template tag 語法是下面這樣：
 
-```
+```markdown
 {% tag_name [ argument ... ] %}
 ```
 
