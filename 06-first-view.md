@@ -10,20 +10,20 @@
 
 這顯然是一個 [function](http://sco.wikipedia.org/wiki/Function_(mathematics))！所以在 Django 中，每個 view 其實就是一個 function。這個 function 接受一個 request 引數（與其他參數，我們之後會提到），回傳一個 `django.http.HttpResponse` 物件。由於 HTTP response 格式需要設定很多東西，所以 Django 提供了一個 shortcut `django.shortcuts.render` 來方便我們產出 response 物件。
 
-所以我們來實作 `home` 這個 view。首先我們要在 `lunch/urls.py` 新增一個 URL pattern，讓 Django 知道如何把網址導向至 view 的 function：
+所以我們來實作 `home` 這個 view。首先我們要在 `lunch/u r ls.py` 新增一個 u r l pattern，讓 Django 知道如何把網址導向至 view 的 function：
 
 ```python
-from django.conf.urls import include, url
+from django.conf.u r ls import include, u r l
 from django.contrib import admin
 from stores.views import home
 
-urlpatterns = [
-    url(r'^$', home),
-    url(r'^admin/', include(admin.site.urls)),
+u r lpatterns = [
+    u r l(r'^$', home),
+    u r l(r'^admin/', include(admin.site.u r ls)),
 ]
 ```
 
-這個 `url` 用 regular expression match 首頁，也就是 URI 是空字串的狀況，並把它對應到 `home`。
+這個 `u r l` 用 regular expression match 首頁，也就是 URI 是空字串的狀況，並把它對應到 `home`。
 
 接著我們實際實作 `home` function：
 
@@ -71,23 +71,23 @@ def home(request):
 <a class="navbar-brand" href="/">午餐系統</a>
 ```
 
-但這不好。Django 不鼓勵你把 URL 直接寫死，因為如果你的網站之後要修改架構，更換所有的 URL 會很痛苦。我們真正想做的，其實不是讓它指向 `/`，而是指向 `stores.views.home` 對應的那個 URL，**不管它是什麼**。所以我們應該這麼做：
+但這不好。Django 不鼓勵你把 u r l 直接寫死，因為如果你的網站之後要修改架構，更換所有的 u r l 會很痛苦。我們真正想做的，其實不是讓它指向 `/`，而是指向 `stores.views.home` 對應的那個 u r l，**不管它是什麼**。所以我們應該這麼做：
 
-1. 幫我們的 URL 加上一個名稱。
+1. 幫我們的 u r l 加上一個名稱。
 
-    把 `lunch/urls.py` 中 `home` 的那行修改成下面這樣：
+    把 `lunch/u r ls.py` 中 `home` 的那行修改成下面這樣：
 
     ```python
-    url(r'^$', home, name='home'),
+    u r l(r'^$', home, name='home'),
     ```
 
-2. 用這個 name 來 refer 我們要的 URL：
+2. 用這個 name 來 refer 我們要的 u r l：
 
     ```html
-    <a class="navbar-brand" href="{% url 'home' %}">午餐系統</a>
+    <a class="navbar-brand" href="{% u r l 'home' %}">午餐系統</a>
     ```
 
-等等！`{% url 'home' %}` 是什麼？
+等等！`{% u r l 'home' %}` 是什麼？
 
 這叫 template tag。很顯然，你不能在 template 中寫 Python（all hail PHP!），所以如果你需要在 template 中使用任何邏輯（JavaScript 不算），就必須使用 template tags。
 
@@ -97,6 +97,6 @@ Django 的 template tag 語法是下面這樣：
 {% tag_name [ argument ... ] %}
 ```
 
-所以上面那個例子中，我們呼叫了 `url` 這個 tag，並傳入一個參數 `'home'`。這個 tag 會幫你找到名稱為 `home`  的 URL pattern（名稱就是 `urls.py` 裡的 `name='home'` ），並輸出該 pattern 對應的網址。在這裡，輸出的就會是 `/`。
+所以上面那個例子中，我們呼叫了 `u r l` 這個 tag，並傳入一個參數 `'home'`。這個 tag 會幫你找到名稱為 `home`  的 u r l pattern（名稱就是 `u r ls.py` 裡的 `name='home'` ），並輸出該 pattern 對應的網址。在這裡，輸出的就會是 `/`。
 
 這就是你的第一個 Django view。接著我們要實際建立資料，把下面的內容也做出來。
