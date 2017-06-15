@@ -89,7 +89,7 @@ def home(request):
     <a class="navbar-brand" href="{% url 'home' %}">午餐系統</a>
    ```
 
-等等！`{% url 'home' %}` 是什麼？
+等等！`{% ur l 'home' %}` 是什麼？
 
 這叫 template tag。很顯然，你不能在 template 中寫 Python（all hail PHP!），所以如果你需要在 template 中使用任何邏輯（JavaScript 不算），就必須使用 template tags。
 
